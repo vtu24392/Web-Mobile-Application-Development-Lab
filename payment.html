@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - VELTECH Clinic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <div class="container border p-5 rounded">
+        <h2>Payment</h2>
+        <form id="paymentForm" onsubmit="return validatePayment()">
+            <div class="form-group">
+                <label for="cardNumber">Credit Card Number</label><br>
+                <input type="text" class="form-control" id="cardNumber" placeholder="Enter your credit card number" name="cardNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry date (MM/YY)</label>
+            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" name="expiryDate" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="Enter CVV" name="cvv" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Pay</button><br><br>
+            <button type="button" class="btn btn-secondary">Back to Home</button>
+        </form>
+    </div>
+
+    <script>
+        function validatePayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber === "" || expiryDate === "" || cvv === "") {
+                alert("All fields are required.");
+                return false;
+            }
+
+            const cardNumberPattern = /^[0-9]{16}$/;
+            if (!cardNumberPattern.test(cardNumber)) {
+                alert("Please enter a valid 16-digit credit card number.");
+                return false;
+            }
+
+            const expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            if (!expiryDatePattern.test(expiryDate)) {
+                alert("Please enter a valid expiry date in MM/YY format.");
+                return false;
+            }
+
+            const cvvPattern = /^[0-9]{3}$/;
+            if (!cvvPattern.test(cvv)) {
+                alert("Please enter a valid 3-digit CVV.");
+                return false;
+            }
+            alert("Payment Successful Kishore! Your appointment is scheduled.");
+            window.location.href = 'index.html';
+            return false;
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
